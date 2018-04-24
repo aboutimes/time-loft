@@ -1,5 +1,5 @@
 # timeloft
-Blog system development based on laravel 5.5.*
+Blog system development based on laravel 5.5
 
 ## Demo
 
@@ -8,14 +8,14 @@ Blog system development based on laravel 5.5.*
 ## Installation
 
 ### 1. Requirements and Environment
->PHP >= 7.0.0
->PHP OpenSSL Extension
->PHP PDO Extension
->PHP Mbstring Extension
->PHP Tokenizer Extension
->PHP XML Extension
->web server (apache/nginx/...)
->Database (MySQL/PostgreSQL/SQLite/SQL Server)
+>PHP >= 7.0.0 <br />
+>PHP OpenSSL Extension <br />
+>PHP PDO Extension <br />
+>PHP Mbstring Extension <br />
+>PHP Tokenizer Extension <br />
+>PHP XML Extension <br />
+>web server (apache/nginx/...) <br />
+>Database (MySQL/PostgreSQL/SQLite/SQL Server) <br />
 >composer
 
 ### 2. Clone the source code

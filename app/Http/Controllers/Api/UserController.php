@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserCollection;
 
 class UserController extends Controller
 {
@@ -26,7 +28,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return response()->json($users);
+        return new UserCollection($users);
+
     }
 
     /**
