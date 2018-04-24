@@ -16,11 +16,11 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');    //标题
-            $table->text('content');    //正文
             $table->string('author');    //作者
-            $table->integer('content');    //阅读数
-            $table->integer('like');    //喜欢数
-            $table->integer('dislike');    //不喜欢数
+            $table->text('content');    //正文
+            $table->integer('read_number')->default(0);    //阅读数
+            $table->integer('like')->default(0);    //喜欢数
+            $table->integer('dislike')->default(0);    //不喜欢数
             $table->boolean('is_top')->default(false);    //置顶
             $table->integer('deleted_at')->nullable();
             $table->integer('created_at');

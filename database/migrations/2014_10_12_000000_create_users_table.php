@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('mobile')->unique()->nullable();
             $table->string('description')->nullable();      //个人签名
-            $table->string('last_login_ip', 15);    //最后登陆IP
+            $table->string('last_login_ip', 15)->nullable();    //最后登陆IP
             $table->string('avatar_url')->nullable();   //头像
             $table->string('password');
             $table->rememberToken();

@@ -17,7 +17,18 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'mobile' => '1'.$faker->unique()->isbn10,
+        'description' => $faker->word,
+        'last_login_ip' => $faker->ipv4,
+        'password' =>  bcrypt('12345678'), // secret
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Article::class, function (Faker $faker) {
+    return [
+        'title' => $faker->word,
+        'author' => $faker->name,
+        'content' => $faker->paragraph(),
     ];
 });
