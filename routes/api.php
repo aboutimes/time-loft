@@ -25,5 +25,6 @@ Route::group(['prefix'=>'/v1'], function () {
 });
 
 Route::group(['prefix'=>'/v1', 'middleware'=>['auth:api']], function () {
-    Route::get('user', 'UserController@index');
+    Route::get('users', 'UserController@index');
+    Route::get('articles', 'ArticleController@index');
 });
