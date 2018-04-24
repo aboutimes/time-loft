@@ -15,9 +15,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique()->nullable();;
+            $table->string('name')->unique();
             $table->string('email')->unique()->nullable();
             $table->string('mobile')->unique()->nullable();
+            $table->string('description')->nullable();      //个人签名
+            $table->string('last_login_ip', 15);    //最后登陆IP
+            $table->string('avatar_url')->nullable();   //头像
             $table->string('password');
             $table->rememberToken();
             $table->integer('deleted_at')->nullable();
