@@ -27,7 +27,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $perPage = \Config::get('siteVars.system_settings.api_per_page')??5;
+        $users = User::paginate($perPage);
+//        return response()->json($users);
         return new UserCollection($users);
 
     }

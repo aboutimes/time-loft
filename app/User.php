@@ -38,6 +38,10 @@ class User extends Authenticatable
 
     protected $dateFormat = 'U';
 
+    /**
+     * @param $username
+     * @return \Illuminate\Database\Eloquent\Model|null|object|static
+     */
     public function findForPassport($username)
     {
         //兼容名字/邮箱/电话登陆，需要前端区分字段
@@ -47,4 +51,10 @@ class User extends Authenticatable
             ->orWhere('mobile', $username)
             ->first();
     }
+
+    public function articles()
+    {
+        return $this->hasmany('\App\Article');
+    }
+
 }

@@ -15,8 +15,9 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('title');    //标题
-            $table->string('author');    //作者
+            $table->string('author')->nullable();    //作者，用于转载
             $table->text('content');    //正文
             $table->integer('read_number')->default(0);    //阅读数
             $table->integer('like')->default(0);    //喜欢数

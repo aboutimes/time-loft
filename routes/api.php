@@ -20,7 +20,7 @@ Route::group(['prefix'=>'/v1'], function () {
     //测试路由
     Route::get('test', function (){
         $a =  'test';
-        return response()->json($a);
+        return response()->json(\App\User::pluck('id')->random());
     });
 });
 
