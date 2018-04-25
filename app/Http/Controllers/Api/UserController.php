@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\User;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User as UserResource;
-use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
+use App\User;
 
 class UserController extends Controller
 {
@@ -29,8 +28,7 @@ class UserController extends Controller
     {
         $perPage = \Config::get('siteVars.system_settings.api_per_page')??5;
         $users = User::paginate($perPage);
-//        return response()->json($users);
-        return new UserCollection($users);
+        return UserResource::collection($users)->hide(['articles']);
 
     }
 
@@ -63,7 +61,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return UserResource::make($user);
     }
 
     /**

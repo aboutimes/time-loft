@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Article;
-use App\Http\Resources\Article as ArticleResource;
-use App\Http\Resources\ArticleCollection;
+use App\Http\Resources\ArticleResource;
 
 class ArticleController extends Controller
 {
@@ -29,7 +28,7 @@ class ArticleController extends Controller
     {
         $perPage = \Config::get('siteVars.system_settings.api_per_page')??5;
         $articles = Article::paginate($perPage);
-        return new ArticleCollection($articles);
+        return ArticleResource::collection($articles);
     }
 
     /**

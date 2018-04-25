@@ -17,6 +17,8 @@ class Article extends Model
     protected $fillable = [
         'title',
         'author',
+        'is_reprint',
+        'reprint_url',
         'content',
         'read_number',
         'like',

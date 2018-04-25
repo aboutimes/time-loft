@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Resources\Json\Resource;
+
+class UserResource extends Resource
+{
+    public static function collection($resource)
+    {
+        return tap(new UserResourceCollection($resource), function ($collection) {
+            $collection->collects = __CLASS__;
+        });
+    }
+
+    /**
+     * @var array
+     */
+    protected $withoutFields = [];
+
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return $this->filterFields([
+//            'id' => $this->id,
+            'name'=>$this->name,
+            'email'=>$this->email,
+            'mobile' => $this->mobile,
+            'description' => $this->description,
+            'last_login_ip' => $this->last_login_ip,
+            'articles' => ArticleResource::collection($this->articles),
+            'link' => url('/').'/user/'.$this->id,
+            'avatar_url' => $this->avatar_url,
+            'created_at' => $this->created_at
+        ]);
+    }
+    /**
+     * Set the keys that are supposed to be filtered out.
+     *
+     * @param array $fields
+     * @return $this
+     */
+    public function hide(array $fields)
+    {
+        $this->withoutFields = $fields;
+        return $this;
+    }
+    /**
+     * Remove the filtered keys.
+     *
+     * @param $array
+     * @return array
+     */
+    protected function filterFields($array)
+    {
+        return collect($array)->forget($this->withoutFields)->toArray();
+    }
+}
