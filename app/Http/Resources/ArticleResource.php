@@ -6,6 +6,22 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class ArticleResource extends Resource
 {
+    public static function collection($resource)
+    {
+        return tap(new ArticleResourceCollection($resource), function ($collection) {
+            $collection->collects = __CLASS__;
+        });
+    }
+
+    /**
+     * @var array
+     */
+    protected $hidetFields = [];
+    /**
+     * @var array
+     */
+    protected $showFields = [];
+
     /**
      * Transform the resource into an array.
      *
@@ -14,7 +30,7 @@ class ArticleResource extends Resource
      */
     public function toArray($request)
     {
-        return [
+        return $this->filterFields([
             'title' => $this->title,
             'author' => $this->author??$this->user->name,//作者未填写则默认为用户名
             'is_reprint' => $this->is_reprint,
@@ -25,6 +41,43 @@ class ArticleResource extends Resource
             'dislike' => $this->dislike,
             'is_top' => $this->is_top,
             'article_url' => url('/').'/article/'.$this->id
-        ];
+        ]);
+    }
+    /**
+     * Set the keys that are supposed to be filtered out.
+     *
+     * @param array $fields
+     * @return $this
+     */
+    public function hide(array $fields)
+    {
+        $this->hideFields = $fields;
+        return $this;
+    }
+    /**
+     * Set the keys that are supposed to be filtered out.
+     *
+     * @param array $fields
+     * @return $this
+     */
+    public function show(array $fields)
+    {
+        $this->showFields = $fields;
+        return $this;
+    }
+
+    /**
+     * Remove the filtered keys.
+     *
+     * @param $array
+     * @return array
+     */
+    protected function filterFields($array)
+    {
+        if (!empty($this->showFields))
+        {
+            return collect($array)->only($this->showFields)->toArray();
+        }
+        return collect($array)->forget($this->hideFields)->toArray();
     }
 }

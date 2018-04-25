@@ -16,7 +16,12 @@ class UserResource extends Resource
     /**
      * @var array
      */
-    protected $withoutFields = [];
+    protected $hideFields = [];
+
+    /**
+     * @var array
+     */
+    protected $showFields = [];
 
     /**
      * Transform the resource into an array.
@@ -47,9 +52,21 @@ class UserResource extends Resource
      */
     public function hide(array $fields)
     {
-        $this->withoutFields = $fields;
+        $this->hideFields = $fields;
         return $this;
     }
+    /**
+     * Set the keys that are supposed to be filtered out.
+     *
+     * @param array $fields
+     * @return $this
+     */
+    public function show(array $fields)
+    {
+        $this->showFields = $fields;
+        return $this;
+    }
+
     /**
      * Remove the filtered keys.
      *
@@ -58,6 +75,10 @@ class UserResource extends Resource
      */
     protected function filterFields($array)
     {
-        return collect($array)->forget($this->withoutFields)->toArray();
+        if (!empty($this->showFields))
+        {
+            return collect($array)->only($this->showFields)->toArray();
+        }
+        return collect($array)->forget($this->hideFields)->toArray();
     }
 }

@@ -9,7 +9,11 @@ class UserResourceCollection extends ResourceCollection
     /**
      * @var array
      */
-    protected $withoutFields = [];
+    protected $hideFields = [];
+    /**
+     * @var array
+     */
+    protected $showFields = [];
     /**
      * Transform the resource collection into an array.
      *
@@ -20,9 +24,26 @@ class UserResourceCollection extends ResourceCollection
     {
         return $this->processCollection($request);
     }
+    /**
+     * Set the keys that are supposed to be filtered out.
+     *
+     * @param array $fields
+     * @return $this
+     */
     public function hide(array $fields)
     {
-        $this->withoutFields = $fields;
+        $this->hideFields = $fields;
+        return $this;
+    }
+    /**
+     * Set the keys that are supposed to be filtered out.
+     *
+     * @param array $fields
+     * @return $this
+     */
+    public function show(array $fields)
+    {
+        $this->showFields = $fields;
         return $this;
     }
     /**
@@ -33,8 +54,14 @@ class UserResourceCollection extends ResourceCollection
      */
     protected function processCollection($request)
     {
+        if (!empty($this->showFields))
+        {
+            return $this->collection->map(function (UserResource $resource) use ($request) {
+                return $resource->show($this->showFields)->toArray($request);
+            })->all();
+        }
         return $this->collection->map(function (UserResource $resource) use ($request) {
-            return $resource->hide($this->withoutFields)->toArray($request);
+            return $resource->hide($this->hideFields)->toArray($request);
         })->all();
     }
 }
