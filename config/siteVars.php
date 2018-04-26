@@ -2,6 +2,6 @@
 
 return [
     'system_settings' => [
-        'api_per_page' => 5,
+        'api_per_page' => 10,
     ],
 ];
