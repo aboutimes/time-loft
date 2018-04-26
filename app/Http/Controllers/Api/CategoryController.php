@@ -54,9 +54,10 @@ class CategoryController extends Controller
     {
 //        $category = Category::find($id);
 //        return CategoryResource::make($category);
-          $category = Category::find($id);
-          $articles = $category->articles()->paginate(5);
-          return ArticleResource::collection($articles)->hide(['content']);
+        $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
+        $category = Category::find($id);
+        $articles = $category->articles()->paginate($perPage);
+        return ArticleResource::collection($articles)->hide(['content']);
     }
 
     /**

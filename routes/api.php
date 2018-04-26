@@ -31,4 +31,6 @@ Route::group(['prefix'=>'/v1', 'middleware'=>['auth:api']], function () {
     Route::get('article/{id}', 'ArticleController@show');
     Route::get('categories', 'CategoryController@index');
     Route::get('category/{id}', 'CategoryController@show');
+    Route::get('tags', 'TagController@index');
+    Route::get('tag/{id}', 'TagController@show');
 });

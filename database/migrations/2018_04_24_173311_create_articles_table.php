@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();     //用户
             $table->integer('category_id')->unsigned()->nullable();    //分类
+            $table->integer('tag_id')->unsigned()->nullable();  //标签
             $table->string('title');    //标题
             $table->string('author')->nullable();    //作者，用于转载
             $table->boolean('is_reprint')->default(false);    //是否转载
