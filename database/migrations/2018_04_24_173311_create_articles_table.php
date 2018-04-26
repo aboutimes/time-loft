@@ -15,7 +15,8 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();     //用户
+            $table->integer('category_id')->unsigned()->nullable();    //分类
             $table->string('title');    //标题
             $table->string('author')->nullable();    //作者，用于转载
             $table->boolean('is_reprint')->default(false);    //是否转载

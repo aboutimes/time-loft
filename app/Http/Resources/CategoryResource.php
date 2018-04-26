@@ -4,11 +4,11 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class ArticleResource extends Resource
+class CategoryResource extends Resource
 {
     public static function collection($resource)
     {
-        return tap(new ArticleResourceCollection($resource), function ($collection) {
+        return tap(new CategoryResourceCollection($resource), function ($collection) {
             $collection->collects = __CLASS__;
         });
     }
@@ -16,7 +16,8 @@ class ArticleResource extends Resource
     /**
      * @var array
      */
-    protected $hidetFields = [];
+    protected $hideFields = [];
+
     /**
      * @var array
      */
@@ -31,17 +32,10 @@ class ArticleResource extends Resource
     public function toArray($request)
     {
         return $this->filterFields([
-            'title' => $this->title,
-            'author' => $this->author??$this->user->name,//作者未填写则默认为用户名
-            'is_reprint' => $this->is_reprint,
-            'reprint_url' => $this->reprint??url("/user/$this->id"),
-            'content' => $this->content,
-            'category' => $this->category->category,
-            'read_number' => $this->read_number,
-            'like' => $this->like,
-            'dislike' => $this->dislike,
-            'is_top' => $this->is_top,
-            'article_url' => url("/article/$this->id")
+            'category'=>$this->category,
+            'category_url'=>url("/category/$this->id"),
+            'articles_count' => ArticleResource::collection($this->articles)->count(),  //分类文章数
+            'articles_url' => ArticleResource::collection($this->articles)->hide(['content']),  //文章链接
         ]);
     }
     /**

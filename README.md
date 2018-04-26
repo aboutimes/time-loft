@@ -14,9 +14,9 @@ Blog system development based on laravel 5.5
 >PHP Mbstring Extension <br />
 >PHP Tokenizer Extension <br />
 >PHP XML Extension <br />
->web server (apache/nginx/...) <br />
+>Web server (apache/nginx/...) <br />
 >Database (MySQL/PostgreSQL/SQLite/SQL Server) <br />
->composer
+>Composer
 
 ### 2. Clone the source code
 

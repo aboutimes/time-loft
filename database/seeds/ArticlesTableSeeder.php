@@ -12,8 +12,10 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         $users = \App\User::pluck('id');
-        factory(\App\Article::class,50)->create()->each(function($art) use($users){
+        $categories = \App\Category::pluck('id');
+        factory(\App\Article::class,50)->create()->each(function($art) use($users, $categories){
             $art->user()->associate($users->random());
+            $art->category()->associate($categories->random());
             $art->save();
         });
     }
