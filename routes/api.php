@@ -33,4 +33,6 @@ Route::group(['prefix'=>'/v1', 'middleware'=>['auth:api']], function () {
     Route::get('category/{id}', 'CategoryController@show');
     Route::get('tags', 'TagController@index');
     Route::get('tag/{id}', 'TagController@show');
+    Route::get('footprints', 'FootprintController@index');
+    Route::get('footprint/{id}', 'FootprintController@show');
 });

@@ -40,4 +40,8 @@ class Article extends Model
     {
         return $this->belongsTo('\App\Tag');
     }
+    public function footprints()
+    {
+        return $this->hasmany('\App\Footprint');
+    }
 }

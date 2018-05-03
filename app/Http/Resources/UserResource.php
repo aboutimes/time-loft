@@ -39,6 +39,7 @@ class UserResource extends Resource
             'description' => $this->description,
             'last_login_ip' => $this->last_login_ip,
             'articles' => ArticleResource::collection($this->articles),
+            'footprints' => FootprintResource::collection($this->footprints),
             'user_url' => url("/user/$this->id"),
             'avatar_url' => $this->avatar_url,
             'created_at' => $this->created_at

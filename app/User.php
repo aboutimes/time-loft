@@ -56,5 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasmany('\App\Article');
     }
+    public function footprints()
+    {
+        return $this->hasmany('\App\Footprint');
+    }
 
 }
