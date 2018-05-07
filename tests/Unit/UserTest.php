@@ -25,26 +25,27 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
-                'data'=>[
-                    [
+                'data' => [
+                    '*' => [
                         'name',
                         'email',
                         'mobile',
                         'description',
                         'last_login_ip',
-                        'footprints' => [
-                            'desc',
-                            'lng',
-                            'lat',
-                            'created_at' => [
-                                'date',
-                                'timezone_type',
-                                'timezone'
-                            ]
-                        ],
+                        'footprints_count',
                         'user_url',
                         'avatar_url',
-                        'created_at'
+                        'created_at' => [
+                            'date',
+                            'timezone_type',
+                            'timezone'
+                        ],
+                        'updated_at' => [
+                            'date',
+                            'timezone_type',
+                            'timezone'
+                        ],
+                        'deleted_at'
                     ]
                 ],
             ]);
@@ -64,21 +65,56 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
-                'data'=>[
+                'data' => [
                     'name',
                     'email',
                     'mobile',
                     'description',
                     'last_login_ip',
-                    'articles',
-                    'footprints',
+                    'articles_count',
+                    'articles' => [
+                        '*' => [
+                            'title',
+                            'author',
+                            'is_reprint',
+                            'reprint_url',
+//                            'content',
+                            'category',
+                            'tag',
+                            'footprints_count',
+//                            'footprints',
+                            'read_number',
+                            'like',
+                            'dislike',
+                            'is_top',
+                            'article_url',
+//                            'created_at',
+//                            'updated_at',
+//                            'deleted_at'
+                        ]
+                    ],
+                    'footprints_count',
+                    'footprints' => [
+                        '*' => [
+                            'desc',
+                            'lng',
+                            'lat',
+                            'created_at'
+                        ]
+                    ],
                     'user_url',
                     'avatar_url',
                     'created_at' => [
                         'date',
                         'timezone_type',
                         'timezone'
-                    ]
+                    ],
+                    'updated_at' => [
+                        'date',
+                        'timezone_type',
+                        'timezone'
+                    ],
+                    'deleted_at'
                 ],
             ]);
     }

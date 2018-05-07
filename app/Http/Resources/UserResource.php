@@ -39,7 +39,13 @@ class UserResource extends Resource
             'description' => $this->description,
             'last_login_ip' => $this->last_login_ip,
             'articles_count' => ArticleResource::collection($this->articles)->count(),
-            'articles' => ArticleResource::collection($this->articles),
+            'articles' => ArticleResource::collection($this->articles)->hide([
+                'content',
+                'footprints',
+                'created_at',
+                'updated_at',
+                'deleted_at'
+            ]),
             'footprints_count' => FootprintResource::collection($this->footprints)->count(),
             'footprints' => FootprintResource::collection($this->footprints),
             'user_url' => url("/user/$this->id"),
