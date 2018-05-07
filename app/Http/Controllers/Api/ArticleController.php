@@ -28,7 +28,7 @@ class ArticleController extends Controller
     {
         $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
         $articles = Article::paginate($perPage);
-        return ArticleResource::collection($articles)->hide(['content']);
+        return ArticleResource::collection($articles)->hide(['content','footprints']);
     }
 
     /**

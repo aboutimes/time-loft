@@ -38,12 +38,16 @@ class ArticleResource extends Resource
             'content' => $this->content,
             'category' => $this->category->category,
             'tag' => $this->tag->tag,
+            'footprints_count' => FootprintResource::collection($this->footprints)->count(),
             'footprints' => FootprintResource::collection($this->footprints),
             'read_number' => $this->read_number,
             'like' => $this->like,
             'dislike' => $this->dislike,
             'is_top' => $this->is_top,
-            'article_url' => url("/article/$this->id")
+            'article_url' => url("/article/$this->id"),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at
         ]);
     }
     /**

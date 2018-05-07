@@ -62,7 +62,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return UserResource::make($user)->hide(['created_at', 'updated_at', 'deleted_at']);
+        return UserResource::make($user);
     }
 
     /**
