@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
         $users = User::paginate($perPage);
-        return UserResource::collection($users)->hide(['articles']);
+        return UserResource::collection($users)->hide(['articles','footprints']);
 
     }
 
