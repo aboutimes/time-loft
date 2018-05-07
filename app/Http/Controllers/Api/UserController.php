@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
         $users = User::paginate($perPage);
-        return UserResource::collection($users)->hide(['articles','footprints']);
+        return UserResource::collection($users)->hide(['articles', 'footprints']);
 
     }
 
@@ -62,7 +62,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return UserResource::make($user);
+        return UserResource::make($user)->hide(['created_at', 'updated_at', 'deleted_at']);
     }
 
     /**

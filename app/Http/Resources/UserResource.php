@@ -38,11 +38,15 @@ class UserResource extends Resource
             'mobile' => $this->mobile,
             'description' => $this->description,
             'last_login_ip' => $this->last_login_ip,
+            'articles_count' => ArticleResource::collection($this->articles)->count(),
             'articles' => ArticleResource::collection($this->articles),
+            'footprints_count' => FootprintResource::collection($this->footprints)->count(),
             'footprints' => FootprintResource::collection($this->footprints),
             'user_url' => url("/user/$this->id"),
             'avatar_url' => $this->avatar_url,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at
         ]);
     }
     /**
