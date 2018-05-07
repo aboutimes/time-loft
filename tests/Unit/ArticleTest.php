@@ -40,16 +40,8 @@ class ArticleTest extends TestCase
                         'dislike',
                         'is_top',
                         'article_url',
-                        'created_at' => [
-                            'date',
-                            'timezone_type',
-                            'timezone'
-                        ],
-                        'updated_at' => [
-                            'date',
-                            'timezone_type',
-                            'timezone'
-                        ],
+                        'created_at',
+                        'updated_at',
                         'deleted_at'
                     ]
                 ],
@@ -93,16 +85,8 @@ class ArticleTest extends TestCase
                     'dislike',
                     'is_top',
                     'article_url',
-                    'created_at' => [
-                        'date',
-                        'timezone_type',
-                        'timezone'
-                    ],
-                    'updated_at' => [
-                        'date',
-                        'timezone_type',
-                        'timezone'
-                    ],
+                    'created_at',
+                    'updated_at',
                     'deleted_at'
                 ],
             ]);

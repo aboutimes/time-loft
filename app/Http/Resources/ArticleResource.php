@@ -45,9 +45,9 @@ class ArticleResource extends Resource
             'dislike' => $this->dislike,
             'is_top' => $this->is_top,
             'article_url' => url("/article/$this->id"),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at
+            'created_at' => strtotime($this->created_at),
+            'updated_at' => strtotime($this->updated_at),
+            'deleted_at' => $this->deleted_at?strtotime($this->deleted_at):null
         ]);
     }
     /**

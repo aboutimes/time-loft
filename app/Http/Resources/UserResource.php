@@ -50,9 +50,9 @@ class UserResource extends Resource
             'footprints' => FootprintResource::collection($this->footprints),
             'user_url' => url("/user/$this->id"),
             'avatar_url' => $this->avatar_url,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at
+            'created_at' => strtotime($this->created_at),
+            'updated_at' => strtotime($this->updated_at),
+            'deleted_at' => $this->deleted_at?strtotime($this->deleted_at):null
         ]);
     }
     /**

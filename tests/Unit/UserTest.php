@@ -35,16 +35,8 @@ class UserTest extends TestCase
                         'footprints_count',
                         'user_url',
                         'avatar_url',
-                        'created_at' => [
-                            'date',
-                            'timezone_type',
-                            'timezone'
-                        ],
-                        'updated_at' => [
-                            'date',
-                            'timezone_type',
-                            'timezone'
-                        ],
+                        'created_at',
+                        'updated_at',
                         'deleted_at'
                     ]
                 ],
@@ -104,16 +96,8 @@ class UserTest extends TestCase
                     ],
                     'user_url',
                     'avatar_url',
-                    'created_at' => [
-                        'date',
-                        'timezone_type',
-                        'timezone'
-                    ],
-                    'updated_at' => [
-                        'date',
-                        'timezone_type',
-                        'timezone'
-                    ],
+                    'created_at',
+                    'updated_at',
                     'deleted_at'
                 ],
             ]);

@@ -36,7 +36,7 @@ class FootprintResource extends Resource
             'desc'=>$this->desc,
             'lng'=>$this->lng,
             'lat' => $this->lat,
-            'created_at' => $this->created_at
+            'created_at' => strtotime($this->created_at),
         ]);
     }
     /**
