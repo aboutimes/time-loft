@@ -61,7 +61,7 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        return ArticleResource::make($article)->hide(['article_url']);
+        return ArticleResource::make($article);
     }
 
     /**
