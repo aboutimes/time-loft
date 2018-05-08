@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
+use App\Article;
 
 class ArticleTest extends TestCase
 {
@@ -16,7 +18,7 @@ class ArticleTest extends TestCase
     public function testAllArticle()
     {
         $webHost = config('app.api_url');
-        $user = \App\User::all()->random();
+        $user = User::all()->random();
         $response = $this->actingAs($user,'api')
             //辅助函数 actingAs 为认证给定用户是 当前用户提供了简单的实现方法
             //->withoutMiddleware()绕过认证
@@ -56,8 +58,8 @@ class ArticleTest extends TestCase
     public function testOneArticle()
     {
         $webHost = config('app.api_url');
-        $user = \App\User::all()->random();
-        $articles = \App\Article::all()->random();
+        $user = User::all()->random();
+        $articles = Article::all()->random();
         $response = $this->actingAs($user,'api')
             ->get("$webHost/v1/article/$articles->id");
         $response

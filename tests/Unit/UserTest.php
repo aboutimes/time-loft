@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
 
 class UserTest extends TestCase
 {
@@ -17,7 +18,7 @@ class UserTest extends TestCase
     public function testAllUser()
     {
         $webHost = config('app.api_url');
-        $user = \App\User::all()->random();
+        $user = User::all()->random();
         $response = $this->actingAs($user,'api')
             //辅助函数 actingAs 为认证给定用户是 当前用户提供了简单的实现方法
             //->withoutMiddleware()绕过认证
@@ -51,7 +52,7 @@ class UserTest extends TestCase
     public function testOneUser()
     {
         $webHost = config('app.api_url');
-        $user = \App\User::all()->random();
+        $user = User::all()->random();
         $response = $this->actingAs($user,'api')
             ->get("$webHost/v1/user/$user->id");
         $response
