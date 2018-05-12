@@ -36,6 +36,7 @@ class ArticleResource extends Resource
             'is_reprint' => $this->is_reprint,
             'reprint_url' => $this->reprint??url("/user/$this->id"),
             'content_simple' => mb_substr($this->content,0,100),
+            'background_url' => $this->background_url,
             'content' => $this->content,
             'category' => $this->category->category,
             'tag' => $this->tag->tag,

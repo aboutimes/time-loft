@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('author')->nullable();    //作者，用于转载
             $table->boolean('is_reprint')->default(false);    //是否转载
             $table->string('reprint_url')->nullable();    //转载地址
+            $table->string('background_url')->nullable();    //背景图
             $table->text('content');    //正文
             $table->integer('read_number')->default(0);    //阅读数
             $table->integer('like')->default(0);    //喜欢数

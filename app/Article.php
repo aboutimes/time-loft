@@ -19,6 +19,7 @@ class Article extends Model
         'author',
         'is_reprint',
         'reprint_url',
+        'background_url',
         'content',
         'read_number',
         'like',
