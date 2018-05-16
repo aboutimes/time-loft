@@ -32,7 +32,7 @@ class FootprintResource extends Resource
     public function toArray($request)
     {
         return $this->filterFields([
-//            'id' => $this->id,
+            'id' => $this->id,
             'desc'=>$this->desc,
             'lng'=>$this->lng,
             'lat' => $this->lat,

@@ -32,7 +32,7 @@ class UserResource extends Resource
     public function toArray($request)
     {
         return $this->filterFields([
-//            'id' => $this->id,
+            'id' => $this->id,
             'name'=>$this->name,
             'email'=>$this->email,
             'mobile' => $this->mobile,

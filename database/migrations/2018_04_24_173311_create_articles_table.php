@@ -20,9 +20,10 @@ class CreateArticlesTable extends Migration
             $table->integer('tag_id')->unsigned()->nullable();  //标签
             $table->string('title');    //标题
             $table->string('author')->nullable();    //作者，用于转载
+            $table->integer('write_at')->nullable();    //文章时间
             $table->boolean('is_reprint')->default(false);    //是否转载
             $table->string('reprint_url')->nullable();    //转载地址
-            $table->string('background_url')->nullable();    //背景图
+            $table->string('background_url')->nullable();    //背景图, required with is_top
             $table->text('content');    //正文
             $table->integer('read_number')->default(0);    //阅读数
             $table->integer('like')->default(0);    //喜欢数

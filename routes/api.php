@@ -13,23 +13,27 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix'=>'/v1',    // 路由前缀
-    'namespace' => '\Api\v1',  // 命名空间
+Route::group([
+//    'prefix'=>'/v1',    // 路由前缀
+//    'middleware'=>['auth:api'], // 中间件
+    'namespace' => '\Api',  // 命名空间
     ], function () {
-    //Route::post('/login','Authenticate@login');
+    Route::post('/login','Authenticate@login');
     Route::post('/register','Authenticate@register');
     Route::post('/logout','Authenticate@logout');
     //测试路由
     Route::get('test', function (){
         $a =  'test';
-        return var_dump($this->namespace);
+        $users = App\User::find(1);
+        return response()->json($a);
+//        return response()->json($users);
     });
 });
 
 Route::group([
-    'prefix'=>'/v1',    // 路由前缀，版本 v1
-    'middleware'=>['auth:api'], // 中间件
-    'namespace' => '\Api\v1',  // 命名空间
+//    'prefix'=>'/v1',    // 路由前缀，版本 v1
+//    'middleware'=>['auth:api'], // 中间件
+    'namespace' => '\Api',  // 命名空间
     ], function () {
     // 用户
     Route::get('users', 'UserController@index');

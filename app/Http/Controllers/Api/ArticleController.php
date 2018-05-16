@@ -1,15 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\TagResource;
 use App\Http\Resources\ArticleResource;
-use App\Tag;
+use App\Article;
 
-class TagController extends Controller
+class ArticleController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +26,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return TagResource::collection($tags)->hide(['articles_url']);
+        $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
+        $articles = Article::paginate($perPage);
+        return ArticleResource::collection($articles)->hide(['content','footprints']);
     }
 
     /**
@@ -50,10 +60,8 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
-        $tag = Tag::find($id);
-        $articles = $tag->articles()->paginate($perPage);
-        return ArticleResource::collection($articles)->hide(['content']);
+        $article = Article::find($id);
+        return ArticleResource::make($article);
     }
 
     /**

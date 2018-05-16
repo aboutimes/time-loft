@@ -1,24 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use App\User;
+use App\Http\Resources\TagResource;
+use App\Http\Resources\ArticleResource;
+use App\Tag;
 
-class UserController extends Controller
+class TagController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -26,10 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
-        $users = User::paginate($perPage);
-        return UserResource::collection($users)->hide(['articles', 'footprints']);
-
+        $tags = Tag::all();
+        return TagResource::collection($tags)->hide(['articles_url']);
     }
 
     /**
@@ -61,8 +50,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return UserResource::make($user);
+        $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
+        $tag = Tag::find($id);
+        $articles = $tag->articles()->paginate($perPage);
+        return ArticleResource::collection($articles)->hide(['content']);
     }
 
     /**
@@ -98,5 +89,4 @@ class UserController extends Controller
     {
         //
     }
-
 }

@@ -32,6 +32,7 @@ class TagResource extends Resource
     public function toArray($request)
     {
         return $this->filterFields([
+            'id' => $this->id,
             'tag'=>$this->tag,
             'tag_url'=>url("/tag/$this->id"),
             'articles_count' => ArticleResource::collection($this->articles)->count(),  //标签文章数

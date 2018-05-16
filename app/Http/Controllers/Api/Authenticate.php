@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,12 +8,18 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
+use Carbon\Carbon;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Passport\Client;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+
 class Authenticate extends Controller
 {
 
     public function __construct(){
-        $this->middleware('guest')->except('logout');
-//        $this->middleware('auth:api')->only(['logout']);
+//        $this->middleware('guest')->except('logout');
+        $this->middleware('auth:api')->only(['logout']);
     }
 
 
@@ -22,8 +28,9 @@ class Authenticate extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(){
-//        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+    public function login(Request $request)
+    {
+//        if(Auth::attempt(['email' => request('username'), 'password' => request('password')])) {
 //            $user = Auth::user();
 //            //createToken($user->name),括号中定义 oauth_access_tokens 名字
 //            $success['token'] =  $user->createToken($user->name)->accessToken;
@@ -31,6 +38,22 @@ class Authenticate extends Controller
 //        }else {
 //            return response()->json(['error'=>'Unauthorised'], 401);
 //        }
+        $validator = Validator::make($request->all(), [
+            'username'    => 'required|string|max:25',
+            'password' => 'required|string',
+        ], [
+            'username.required' => '请填写用户名',
+            'username.string' => '用户名必须是字符串',
+            'username.max' => '用户名长度必须小于 25',
+            'password.required' => '请填写密码',
+            'password.string' => '密码必须是字符串'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 422);
+        }
+
+
     }
 
     /**
@@ -42,12 +65,12 @@ class Authenticate extends Controller
     {
         // confirmed 用于验证两次输入密码是否一致，对应字段 password_confirmation
         $validator = Validator::make($request->all(), [
-            'name' => [
+            'username' => [
                 'required',
                 'string',
                 'regex:/(?!.*@)\D+/',
                 'max:25',
-                'unique:users'
+                'unique:users,name'
             ],
             'email' => 'nullable|required_without:mobile|string|email|max:255|unique:users',
             'mobile' => [
@@ -59,11 +82,11 @@ class Authenticate extends Controller
             ],
             'password' => 'required|string|min:8|confirmed',
         ], [
-            'name.required' => '请填写用户名',
-            'name.string' => '用户名必须是字符串',
-            'name.max' => '用户名长度必须小于 25',
-            'name.regex' => '用户名不能包含 @，且不能为纯数字',
-            'name.unique' => '用户名已被使用',
+            'username.required' => '请填写用户名',
+            'username.string' => '用户名必须是字符串',
+            'username.max' => '用户名长度必须小于 25',
+            'username.regex' => '用户名不能包含 @，且不能为纯数字',
+            'username.unique' => '用户名已被使用',
             'email.required_without' => '请填写邮箱或手机号码',
             'email.string' => '电子邮箱必须是字符串',
             'email.email' => '请填写正确的电子邮箱格式',
@@ -80,12 +103,14 @@ class Authenticate extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error'=>$validator->errors()], 422);
         }
 
-        $data = request()->only('name', 'email', 'mobile', 'password');
+        $data = request()->only('username', 'email', 'mobile', 'password');
+//        dd($data);
+//        exit();
         $user = User::create([
-            'name' => $data['name'],
+            'name' => $data['username'],
             'email' => $data['email']??null,
             'mobile' => $data['mobile']??null,
             'password' => bcrypt($data['password']),

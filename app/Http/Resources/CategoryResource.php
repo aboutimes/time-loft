@@ -32,6 +32,7 @@ class CategoryResource extends Resource
     public function toArray($request)
     {
         return $this->filterFields([
+            'id' => $this->id,
             'category'=>$this->category,
             'category_url'=>url("/category/$this->id"),
             'articles_count' => ArticleResource::collection($this->articles)->count(),  //分类文章数

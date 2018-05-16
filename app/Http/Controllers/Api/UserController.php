@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ArticleResource;
-use App\Article;
+use App\Http\Resources\UserResource;
+use App\User;
 
-class ArticleController extends Controller
+class UserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,8 +27,9 @@ class ArticleController extends Controller
     public function index()
     {
         $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
-        $articles = Article::paginate($perPage);
-        return ArticleResource::collection($articles)->hide(['content','footprints']);
+        $users = User::paginate($perPage);
+        return UserResource::collection($users)->hide(['articles', 'footprints']);
+
     }
 
     /**
@@ -60,8 +61,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article = Article::find($id);
-        return ArticleResource::make($article);
+        $user = User::find($id);
+        return UserResource::make($user);
     }
 
     /**
@@ -97,4 +98,5 @@ class ArticleController extends Controller
     {
         //
     }
+
 }
