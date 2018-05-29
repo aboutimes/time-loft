@@ -27,7 +27,7 @@ class ArticleController extends Controller
     public function index()
     {
         $perPage = \Config::get('siteVars.system_settings.api_per_page')??10;
-        $articles = Article::paginate($perPage);
+        $articles = Article::orderBy('created_at','desc')->paginate($perPage);
         return ArticleResource::collection($articles)->hide(['content','footprints']);
     }
 
